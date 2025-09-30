@@ -2,7 +2,7 @@ import { PomodoroTimer } from "@/components/PomodoroTimer";
 import { TodoList } from "@/components/TodoList";
 import { CompactCalendar } from "@/components/CompactCalendar";
 import { AmbientSounds } from "@/components/AmbientSounds";
-import { Sparkles } from "lucide-react";
+import facensLogo from "@/assets/facens-logo.png";
 
 const Index = () => {
   return (
@@ -10,10 +10,14 @@ const Index = () => {
       {/* Header */}
       <header className="py-8 px-4 animate-fade-in">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Sparkles className="h-8 w-8 text-primary" />
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <img 
+              src={facensLogo} 
+              alt="Facens Logo" 
+              className="h-12 w-auto"
+            />
             <h1 className="text-4xl font-bold text-foreground">
-              FocusSpa
+              Facens Focus
             </h1>
           </div>
           <p className="text-muted-foreground">
