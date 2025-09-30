@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useFocus } from "@/contexts/FocusContext";
+import { toast } from "@/hooks/use-toast";
 
 const FOCUS_TIME = 25 * 60; // 25 minutes in seconds
 const BREAK_TIME = 5 * 60; // 5 minutes in seconds
 
 export const PomodoroTimer = () => {
+  const { addFocusSession } = useFocus();
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
@@ -20,6 +23,14 @@ export const PomodoroTimer = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       // Auto switch between focus and break
+      if (!isBreak) {
+        // Focus session completed - log it
+        addFocusSession(25);
+        toast({
+          title: "Sessão de foco concluída! 🎉",
+          description: "Hora de uma pausa de 5 minutos.",
+        });
+      }
       setIsBreak(!isBreak);
       setTimeLeft(isBreak ? FOCUS_TIME : BREAK_TIME);
       setIsRunning(false);

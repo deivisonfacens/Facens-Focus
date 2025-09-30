@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useFocus } from "@/contexts/FocusContext";
 
 interface Todo {
   id: string;
@@ -12,6 +13,7 @@ interface Todo {
 }
 
 export const TodoList = () => {
+  const { addCompletedTask } = useFocus();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
 
@@ -31,9 +33,17 @@ export const TodoList = () => {
 
   const toggleTodo = (id: string) => {
     setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+      todos.map((todo) => {
+        if (todo.id === id) {
+          const newCompleted = !todo.completed;
+          // If marking as completed, log it
+          if (newCompleted) {
+            addCompletedTask();
+          }
+          return { ...todo, completed: newCompleted };
+        }
+        return todo;
+      })
     );
   };
 

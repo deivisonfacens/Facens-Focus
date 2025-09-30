@@ -1,12 +1,14 @@
 import { PomodoroTimer } from "@/components/PomodoroTimer";
 import { TodoList } from "@/components/TodoList";
 import { CompactCalendar } from "@/components/CompactCalendar";
-import { AmbientSounds } from "@/components/AmbientSounds";
+import { PerformanceReport } from "@/components/PerformanceReport";
+import { FocusProvider } from "@/contexts/FocusContext";
 import facensLogo from "@/assets/facens-logo.png";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-spa">
+    <FocusProvider>
+      <div className="min-h-screen bg-gradient-spa">
       {/* Header */}
       <header className="py-8 px-4 animate-fade-in">
         <div className="max-w-7xl mx-auto text-center">
@@ -44,18 +46,19 @@ const Index = () => {
             <CompactCalendar />
           </div>
 
-          {/* Ambient Sounds */}
+          {/* Performance Report */}
           <div className="md:col-span-1">
-            <AmbientSounds />
+            <PerformanceReport />
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="py-6 text-center text-sm text-muted-foreground">
-        <p>Respire fundo, concentre-se e seja produtivo ✨</p>
-      </footer>
-    </div>
+        <footer className="py-6 text-center text-sm text-muted-foreground">
+          <p>Respire fundo, concentre-se e seja produtivo ✨</p>
+        </footer>
+      </div>
+    </FocusProvider>
   );
 };
 
